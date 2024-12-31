@@ -1,29 +1,22 @@
 <template>
   <div id="app" class="container">
     <div class="tabs">
-      <button :class="{ active: currentTab === 'Spin' }" @click="currentTab = 'Spin'">轉盤</button>
-      <button :class="{ active: currentTab === 'TreasureHunt' }" @click="currentTab = 'TreasureHunt'">尋寶</button>
+      <router-link to="/spinner">
+        <button :class="{ active: route.name === 'Spinner' }" @click="currentTab = 'Spin'">轉盤</button>
+      </router-link>
+      <router-link to="/treasure-hunt">
+        <button :class="{ active: route.name === 'TreasureHunt' }" @click="currentTab = 'TreasureHunt'">尋寶</button>
+      </router-link>
     </div>
-    <component :is="currentTab"></component>
+    <router-view></router-view>
   </div>
 </template>
 
-<script>
-import Spin from './components/Spin.vue';
-import TreasureHunt from './components/TreasureHunt.vue';
+<script setup>
+import { useRoute } from 'vue-router';
 
-export default {
-  name: 'App',
-  components: {
-    Spin,
-    TreasureHunt,
-  },
-  data() {
-    return {
-      currentTab: 'Spin',
-    };
-  },
-};
+const route = useRoute();
+console.log(route);
 </script>
 
 <style scoped>
